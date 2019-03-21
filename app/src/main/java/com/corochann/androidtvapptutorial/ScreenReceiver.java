@@ -15,8 +15,10 @@ public class ScreenReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
             // do whatever you need to do here
-            Intent intent_temp = new Intent(context,MainActivity.class);
-            context.startActivity(intent_temp);
+            Intent intent_tempa = new Intent(context,SplashScreen.class);
+            context.startActivity(intent_tempa);
+//            Intent intent_temp = new Intent(context,MainActivity.class);
+//            context.startActivity(intent_temp);
             wasScreenOn = false;
         } else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
             // and do whatever you need to do here

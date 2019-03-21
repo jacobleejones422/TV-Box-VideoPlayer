@@ -14,13 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.MediaController;
 import android.widget.VideoView;
-
+import android.media.MediaPlayer;
 
 public class MainActivity extends Activity {
 
     private final static int PERMISSIONS = 1;
     private static final String[] REQUIRED_SDK_PERMISSIONS = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
-
+    private VideoView videoView;
 //    protected void checkPermission() {
 //        final List<String> missingPermissions = new ArrayList<String>();
 //        // check required permission
@@ -46,6 +46,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         startService(new Intent(getApplicationContext(), UpdateService.class));
 
         IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
@@ -67,7 +68,7 @@ public class MainActivity extends Activity {
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
 
-        VideoView videoView = (VideoView)this.findViewById(R.id.videoView);
+        videoView = (VideoView)this.findViewById(R.id.videoView);
         MediaController mc = new MediaController(this);
         videoView.setMediaController(mc);
 
@@ -78,7 +79,13 @@ public class MainActivity extends Activity {
 
         videoView.requestFocus();
         videoView.start();
-
+        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer arg0) {
+                // restart on completion
+                videoView.start();
+            }
+        });
 //
 //        if (Build.VERSION.SDK_INT >= 23) {
 //            checkPermission();

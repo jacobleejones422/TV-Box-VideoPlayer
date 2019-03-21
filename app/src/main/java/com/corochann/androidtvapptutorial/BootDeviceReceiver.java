@@ -28,7 +28,7 @@ public class BootDeviceReceiver extends BroadcastReceiver {
             //startServiceDirectly(context);
 
             startServiceByAlarm(context);
-            Intent intent_temp = new Intent(context,MainActivity.class);
+            Intent intent_temp = new Intent(context,SplashScreen.class);
             context.startActivity(intent_temp);
         }
     }
